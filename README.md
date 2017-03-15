@@ -39,7 +39,27 @@ Python 3.4.3
     - a drive name followed by a path with the backslash separating directories
   - the file defined by the `i` or `input` option must be no more than 2048 bytes (this is a constant that can be changed)
 
-#### Test cases:
+#### Program output and test cases:
+  - option `f` or `--filepaths`
+```
+    kendall@kendall-XPS-8500:~/Development/path-parser$ python main.py -f c:\\path\\to\\dir\\file.txt
+    [c:, path, to, dir, file.txt, file, .txt, path\to\dir]
+```
+  - option `i` or `--input`
+```
+    kendall@kendall-XPS-8500:~/Development/path-parser$ python main.py -i paths.txt
+    [c:, windows, system32, svchost.exe, svchost, .exe, windows\system32]
+    [c:, n, t, svchost.exe, svchost, .exe, n\t]
+    [c:, nwindows, tsystem32, svchost.exe, svchost, .exe, nwindows\tsystem32]
+    [c:, windows, system32, svchost, windows\system32\svchost]
+    [c:, windows, system32, windows\system32]
+```
+  - option `s` or `--stdin`
+```
+    kendall@kendall-XPS-8500:~/Development/path-parser$ python main.py -s
+    Enter the path: c:\path\to\dir\file.txt
+    [c:, path, to, dir, file.txt, file, .txt, path\to\dir]
+```
   - no arguments:
 ```
     Kendalls-MacBook-Pro:FilePathTokenizer kendallweihe$ python3 main.py
