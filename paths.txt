@@ -1,0 +1,5 @@
+c:\windows\system32\svchost.exe
+c:\windows\system32
+c:\windows\system32\svchost
+c:\nwindows\tsystem32\svchost.exe
+c:\n\t\svchost.exe

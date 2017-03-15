@@ -1,5 +1,6 @@
 import pdb
 
+# custome iterator -- used to iterate over the path directories
 class CustomerIter:
     def __init__(self, indices, max):
         self.current = 0
@@ -27,6 +28,9 @@ class FilePathTokenizer:
     def __init__(self):
         self.tokenized = {}
 
+    # tokenize_file_paths() is used reused by other functions
+        # inputs: list of paths
+        # outputs: tokenized paths placed in dictionary
     def tokenize_file_paths(self, file_paths):
         # iterate over the paths
         for path in file_paths:
@@ -40,7 +44,7 @@ class FilePathTokenizer:
             # splice path into tokens in between backslash indices
             tokens = []
             for low, high in CustomerIter(directory_indices, len(path)):
-                if low is StopIteration:
+                if low is StopIteration: # TODO: there is a cleaner way to implement this
                     break
                 if low != 0:
                     tokens.append(path[low+1:high])
@@ -52,7 +56,7 @@ class FilePathTokenizer:
             for i in range(len(tokens[len(tokens)-1])):
                 if tokens[len(tokens)-1][i] == ".":
                     extension_index = i
-            if extension_index:
+            if extension_index: # case where a file exists at the end of the path
                 tokens.append(path[directory_indices[len(directory_indices)-1]+1:directory_indices[len(directory_indices)-1]+1+extension_index])
                 tokens.append(path[directory_indices[len(directory_indices)-1]+extension_index+1:len(path)])
 
@@ -68,19 +72,16 @@ class FilePathTokenizer:
         return self.tokenized
 
     def tokenize_fd(self, fd):
-        # TODO:
-            # open and read paths from files
-            # check for errors
-            # create list of paths
-            # call tokenize_file_paths
-        pdb.set_trace()
+        # read in the lines, and then call self.tokenize_file_paths() to tokenize
+        lines = [line.rstrip() for line in fd.readlines(2048)]
+        self.tokenize_file_paths(lines)
         return self.tokenized
 
-    def tokenize_file_path(file_path):
-        return tokenize_file_paths(file_path)
+    def tokenize_file_path(self, file_path):
+        # simply call self.tokenize_file_paths() with the single file path as a list with one element
+        return self.tokenize_file_paths([file_path])
 
     def print_tokens(self):
+        # iterate through the paths and print
         for path in self.tokenized:
-            # print(self.tokenized[path])
             print("[{0}]".format(", ".join(self.tokenized[path])))
-            # print(',  '.join(self.tokenized[path]))

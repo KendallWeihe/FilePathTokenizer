@@ -15,7 +15,8 @@ tokenized = tokenize_custom.FilePathTokenizer()
 if args['filepaths']:
     tokenized.tokenize_file_paths(args['filepaths'])
 elif args['inputs']:
-    tokenized.tokenize_fd(args['inputs'])
+    fd = open(args['inputs'])
+    tokenized.tokenize_fd(fd)
 elif args['stdin']:
     path = input("Enter the path: ")
     tokenized.tokenize_file_path(path)
