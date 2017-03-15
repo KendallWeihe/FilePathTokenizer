@@ -2,13 +2,13 @@
 
 Tokenization should break each sub folder out into its own item in the list, it should also fabricate a token that contains all the directories excluding drive and filename:
 
-c:\Windows\system32\drivers -> ['c:', 'windows', 'system32’, 'drivers', 'windows\system32\drivers']
+`c:\Windows\system32\drivers` -> `['c:', 'windows', 'system32’, 'drivers', 'windows\system32\drivers']`
 
 If a filename is found tokenization should be as follows:
-[<filename>.<ext>, <filename>, <ext>]
+`[<filename>.<ext>, <filename>, <ext>]`
 
 Example:
-c:\windows\system32\svchost.exe -> ['c:', 'windows’, 'system32', 'windows\system32', 'svchost.exe', 'svchost’, 'exe']
+`c:\windows\system32\svchost.exe` -> `['c:', 'windows’, 'system32', 'windows\system32', 'svchost.exe', 'svchost’, 'exe']`
 
 #### The following files are included:
   - `main.py`
@@ -22,10 +22,18 @@ c:\windows\system32\svchost.exe -> ['c:', 'windows’, 'system32', 'windows\syst
   - `paths.txt`
     - an example text file for the -i or --input option
 
+#### NOTE: the following version of Python was used:
+```
+kendall@kendall-XPS-8500:~/Development/path-parser$ python --version
+Python 3.4.3
+```
+
 #### Test cases:
   - no arguments:
->    Kendalls-MacBook-Pro:FilePathTokenizer kendallweihe$ python3 main.py
->    You did not select an option
+```
+    Kendalls-MacBook-Pro:FilePathTokenizer kendallweihe$ python3 main.py
+    You did not select an option
+```
   - more than one period in the path
   - more than one period in the file
   - just one period in the path
