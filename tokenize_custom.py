@@ -13,7 +13,7 @@ class CustomerIter:
 
     def __next__(self):
         if self.count > len(self.indices):
-            return StopIteration, StopIteration
+            raise StopIteration
         elif self.count == len(self.indices):
             self.count += 1
             low = self.current
@@ -44,8 +44,8 @@ class FilePathTokenizer:
             # splice path into tokens in between backslash indices
             tokens = []
             for low, high in CustomerIter(directory_indices, len(path)):
-                if low is StopIteration: # TODO: there is a cleaner way to implement this
-                    break
+                # if low is StopIteration: # TODO: there is a cleaner way to implement this
+                #     break
                 if low != 0:
                     tokens.append(path[low+1:high])
                 else:
