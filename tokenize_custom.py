@@ -40,6 +40,10 @@ class FilePathTokenizer:
             for i in range(len(path)):
                 if path[i] == "\\":
                     directory_indices.append(i)
+            if directory_indices == []: # case where there were no backslash characters found
+                print("Invalid path, please check specifications")
+                self.tokenized[path] = [path]
+                return self.tokenized
 
             # splice path into tokens in between backslash indices
             tokens = []
