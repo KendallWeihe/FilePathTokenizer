@@ -90,7 +90,7 @@ Python 3.4.3
     Invalid path, please check specifications
     [c:pathtodir]
 ```
-  - stdin an escape with a special character such as "\t" or "\n"
+  - stdin an escape character coupled with a special character such as "\t" or "\n"
 ```
     kendall@kendall-XPS-8500:~/Development/path-parser$ python main.py -s
     Enter the path: c:\newline\tab
@@ -102,6 +102,8 @@ Python 3.4.3
 I admit, `tokenize_file_paths()` is a bit lengthy for a function, but I wanted the code to be as robust as possible so that I could reuse that function for other purposes.
 
 I am unfamiliar with pep8 coding styles. For the purposes of time, this project did not take pep8 coding styles into account. However, I do plan on doing some reading in my free time to learn pep8 conventions.
+
+Something I learned during this project was how to implement a custom iterator -- the class: `CustomerIter`
 
 I didn't use `pathlib` or the `os` packages to parse the path variables -- the purposes of this program were to measure my problem solving skills (not solve the problem in a few lines of code).
 

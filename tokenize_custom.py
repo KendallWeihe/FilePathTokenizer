@@ -1,12 +1,12 @@
 import pdb
 
-# custome iterator -- used to iterate over the path directories
+# custom iterator -- used to iterate over the path directories
 class CustomerIter:
     def __init__(self, indices, max):
         self.current = 0
-        self.indices = indices
-        self.count = 0
-        self.high = max
+        self.indices = indices # indices of the backslash characters
+        self.count = 0 # used for counting through the directories list
+        self.high = max # index of the last character in the path string
 
     def __iter__(self):
         return self
@@ -14,15 +14,15 @@ class CustomerIter:
     def __next__(self):
         if self.count > len(self.indices):
             raise StopIteration
-        elif self.count == len(self.indices):
+        elif self.count == len(self.indices): # case where the iterator has reached the end of the path, but must parse the last token
             self.count += 1
             low = self.current
             return low, self.high
         else:
-            low = self.current
-            self.current = self.indices[self.count]
-            self.count += 1
-            return low, self.current
+            low = self.current # move the low pointer to the current
+            self.current = self.indices[self.count] # increment the current to the next position
+            self.count += 1 # increment the count
+            return low, self.current # return the low and high index positions
 
 class FilePathTokenizer:
     def __init__(self):
@@ -42,17 +42,15 @@ class FilePathTokenizer:
                     directory_indices.append(i)
             if directory_indices == []: # case where there were no backslash characters found
                 print("Invalid path, please check specifications")
-                self.tokenized[path] = [path]
+                # self.tokenized[path] = [path] # uncomment if you want to see what the path actually looks like
                 return self.tokenized
 
             # splice path into tokens in between backslash indices
             tokens = []
-            for low, high in CustomerIter(directory_indices, len(path)):
-                # if low is StopIteration: # TODO: there is a cleaner way to implement this
-                #     break
+            for low, high in CustomerIter(directory_indices, len(path)): # custom iterator to iterate through the backslash indices
                 if low != 0:
-                    tokens.append(path[low+1:high])
-                else:
+                    tokens.append(path[low+1:high]) # add the +1 to get rid of the backslash character
+                else: # case where this is the first token -- the drive name
                     tokens.append(path[low:high])
 
             # find the file extension position -- if it exists
